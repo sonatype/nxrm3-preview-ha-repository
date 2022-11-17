@@ -13,13 +13,18 @@
 
 -->
 
-# Nexus Repository 3 High Availability Preview Helm and Sample YAML Repository
-
+# Nexus Repository 3 High Availability (HA) Preview Helm and Sample YAML Repository
 This repository contains resources for those in our Nexus Repository 3 High Availability Preview Program.
 
-We provide a Helm chart for those deploying to an AWS environment and sample YAML files for those deploying on-premises.
+# Helm Chart for an HA Nexus Repository Deployment in AWS 
+We provide a [Helm chart for those deploying to an AWS environment](https://github.com/sonatype/nxrm3-preview-ha-repository/tree/main/nxrm-aws-resiliency).
 
-Use the 
-Deploying Nexus Repository Pro to an AWS cloud environment with the desire for automatic failover across Availability Zones (AZs) within a single region
-Planning to configure a single Nexus Repository Pro instance within your Kubernetes/EKS cluster with two or more nodes spread across different AZs within an AWS region
-Using an external PostgreSQL database (required)
+# Sample YAML Files for an HA Nexus Repository Deployment On Premises
+You can use the sample YAML files in the [Sample YAML Files](https://github.com/sonatype/nxrm3-preview-ha-repository/tree/main/on-prem-resiliency-yamls) to help set up the YAMLs you will need for an on-premises Nexus Repository HA deployment. 
+
+Ensure you have filled out the YAML files with appropriate information for your deployment.
+
+> **Note** The YAML files in this section are just examples and cannot be copy-pasted and used as-is. You must fill them out with the appropriate information for your deployment to be able to use them.
+
+# Format Limitations
+For this preview program, HA supports Maven, Docker, and npm formats; once HA is available generally, it will support all formats that PostgreSQL supports
