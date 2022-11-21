@@ -13,31 +13,22 @@
 
 -->
 
-# Helm Chart for a Resilient Nexus Repository Deployment in AWS
+# Helm Chart for a High-Availability Nexus Repository Deployment in AWS
 
-This Helm chart configures the Kubernetes resources that are needed for a resilient Nexus Repository deployment on AWS as described in our documented [single-node cloud resilient deployment example using AWS](https://help.sonatype.com/repomanager3/planning-your-implementation/resiliency-and-high-availability/single-node-cloud-resilient-deployment-example-using-aws).
-
-Use the checklist below to determine if this Helm chart is suitable for your deployment needs.
-
----
-
-## When to Use This Helm Chart
-Use this Helm chart if you are doing any of the following:
-- Deploying Nexus Repository Pro to an AWS cloud environment with the desire for automatic failover across Availability Zones (AZs) within a single region
-- Planning to configure a single Nexus Repository Pro instance within your Kubernetes/EKS cluster with two or more nodes spread across different AZs within an AWS region
-- Using an external PostgreSQL database
-
-> **Note**: A Nexus Repository Pro license is required for our resilient deployment options. Your Nexus Repository Pro license file must be stored externally as mounted from AWS Secrets AWS (required).
+This Helm chart configures the Kubernetes resources that are needed for a high-availability (HA) Nexus Repository deployment on AWS.
 
 ---
 
 ## Prerequisites for This Chart
-In order to set up an environment like the one illustrated above and described in this section, you will need the following:
+In order to set up an HA environment, you will need the following:
 
 - Kubernetes 1.19+
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [Helm 3](https://helm.sh/docs/intro/install/)
-- A Nexus Repository Pro license
+- A Nexus Repository 3 Pro license
+- An external PostgreSQL database
+- At least 2 but no more than 3 Nexus Repository instances all using the same Nexus Repository 3 version and with identical configuration in their $data-dir/etc/nexus.properties files
+- Connectivity between Nexus Repository, the database, and blob store
 - An AWS account with permissions for accessing the following AWS services:
   - Elastic Kubernetes Service (EKS)
   - Relational Database Service (RDS) for PostgreSQL
@@ -45,8 +36,9 @@ In order to set up an environment like the one illustrated above and described i
   - CloudWatch
   - Simple Storage Service (S3)
   - Secrets Manager
+ - All architecture must be in one region
 
-You will also need to complete the steps below. See the referenced AWS documentation for detailed configuration steps. Also see [our resiliency documentation](https://help.sonatype.com/repomanager3/planning-your-implementation/resiliency-and-high-availability/single-node-cloud-resilient-deployment-example-using-aws) for more details about why these steps are necessary and how each AWS solution functions within a resilient deployment:
+You will also need to complete the steps below. See the referenced AWS documentation for detailed configuration steps:
 1. Configure an EKS cluster - [AWS documentation for managed nodes (i.e., EC2)](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html)
 2. Create an Aurora database cluster - [AWS documentation for creating an Aurora database cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.CreateInstance.html)
 3. Deploy the AWS Load Balancer Controller (LBC) to your EKS cluster - [AWS documentation for deploying the AWS LBC to your EKS cluster](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
@@ -163,7 +155,7 @@ echo $ROLE_ARN
   
 3. Install the chart using the following:
   
-```helm install nxrm sonatype/nxrm-aws-resiliency -f values.yaml```
+```helm install nxrm sonatype/nxrm-aws-ha -f values.yaml```
   
 4. Get the Nexus Repository link using the following:
   
