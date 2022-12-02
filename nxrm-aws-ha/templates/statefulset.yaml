@@ -115,8 +115,8 @@ spec:
           configMap:
             name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-logback-tasklogfile-override
             items:
-                - key: logback-tasklogfile-appender-override.xml
-                  path: logback-tasklogfile-appender-override.xml
+              - key: logback-tasklogfile-appender-override.xml
+                path: logback-tasklogfile-appender-override.xml
   volumeClaimTemplates:
     - metadata:
         name: nexus-data
