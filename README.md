@@ -19,12 +19,12 @@ This repository contains resources for those in our Nexus Repository 3 High Avai
 ## Helm Chart for an HA Nexus Repository Deployment in AWS 
 We provide a [Helm chart for those deploying to an AWS environment](https://github.com/sonatype/nxrm3-preview-ha-repository/tree/main/nxrm-aws-resiliency).
 
-## Sample YAML Files for an HA Nexus Repository Deployment On Premises
-You can use the sample YAML files in the [Sample YAML Files](https://github.com/sonatype/nxrm3-preview-ha-repository/tree/main/on-prem-resiliency-yamls) to help set up the YAMLs you will need for an on-premises Nexus Repository HA deployment. 
+## Sample YAML Files for an HA Nexus Repository Deployment
+If you do not wish to use the Helm chart, you can use the sample YAML files in the [Sample AWS HA YAML Files section](https://github.com/sonatype/nxrm3-preview-ha-repository/tree/main/sample-aws-ha-yamls) to help set up the YAMLs you will need for a Nexus Repository HA deployment.
 
 Ensure you have filled out the YAML files with appropriate information for your deployment.
 
 > **Note** The YAML files in this section are just examples and cannot be copy-pasted and used as-is. You must fill them out with the appropriate information for your deployment to be able to use them.
 
 ## Format Limitations
-For this preview program, HA supports Maven, Docker, and npm formats; once HA is available generally, it will support all formats that PostgreSQL supports
+For this preview program, HA supports Maven, Docker, and npm formats; once HA is available generally, it will support all formats that PostgreSQL supports.
