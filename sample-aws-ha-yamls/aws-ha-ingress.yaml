@@ -13,6 +13,30 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: nxrm
+  name: ingress-nxrm-nexus
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: <scheme>
+    alb.ingress.kubernetes.io/subnets: <subnet id 1>, <subnet id 2>
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:000000000000:certificate/11111111-2abc-7777-0abc-0000ab431111 # The AWS Certificate Manager ARN for your HTTPS certificate
+spec:
+  rules:
+    - host: example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nxrm-nexus-service
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: nxrm
   name: ingress-nxrm-docker
   annotations:
     kubernetes.io/ingress.class: alb
@@ -29,6 +53,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: nxrm-service-docker
+                name: nxrm-nexus-docker-service
                 port:
                   number: 9090
