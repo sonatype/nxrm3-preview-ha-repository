@@ -130,4 +130,4 @@ spec:
         storageClassName: "nxrm-nexus-ebs-storage"
         resources:
           requests:
-            storage: {{.Values.pvc.storage }}
+            storage: 20Gi
