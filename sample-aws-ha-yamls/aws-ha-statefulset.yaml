@@ -28,7 +28,7 @@ spec:
         # for nxrm-app to start and this increases the total start up time.
         - name: chown-nexusdata-owner-to-nexus-and-init-log-dir
           image: busybox:1.33.1
-          command: [/bin/sh]
+          command: [ /bin/sh ]
           args:
             - -c
             - >-
@@ -77,14 +77,14 @@ spec:
             - name: NEXUS_SECURITY_RANDOMPASSWORD
               value: "false"
             - name: INSTALL4J_ADD_VM_PARAMS
-              value: "-Xms2703m -Xmx2703m -Dnexus.licenseFile=/nxrm-secrets/nexus-repository-ha-nexus-27504-license \
+              value: "-Xms2703m -Xmx2703m -Dnexus.licenseFile=/nxrm-secrets/nxrm-license.lic \
           -Dnexus.datastore.clustered.enabled=true -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs \
           -Dnexus.datastore.nexus.jdbcUrl=jdbc:postgresql://${DB_HOST}:3306/${DB_NAME} \
           -Dnexus.datastore.nexus.username=${DB_USER} \
           -Dnexus.datastore.nexus.password=${DB_PASSWORD}"
           volumeMounts:
             - mountPath: /nxrm-secrets
-              name: nxrm-secrets
+              name: nexus-secret
             - name: nexus-data
               mountPath: /nexus-data
             - name: logback-tasklogfile-override
@@ -92,24 +92,24 @@ spec:
               subPath: logback-tasklogfile-appender-override.xml
         - name: request-log
           image: busybox:1.33.1
-          args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/request.log']
+          args: [ /bin/sh, -c, 'tail -n+1 -F /nexus-data/log/request.log' ]
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
         - name: audit-log
           image: busybox:1.33.1
-          args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/audit/audit.log']
+          args: [ /bin/sh, -c, 'tail -n+1 -F /nexus-data/log/audit/audit.log' ]
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
         - name: tasks-log
           image: busybox:1.33.1
-          args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/tasks/allTasks.log']
+          args: [ /bin/sh, -c, 'tail -n+1 -F /nexus-data/log/tasks/allTasks.log' ]
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
       volumes:
-        - name: nxrm-secrets
+        - name: nexus-secret
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
@@ -120,8 +120,8 @@ spec:
           configMap:
             name: nxrm-logback-tasklogfile-override
             items:
-                - key: logback-tasklogfile-appender-override.xml
-                  path: logback-tasklogfile-appender-override.xml
+              - key: logback-tasklogfile-appender-override.xml
+                path: logback-tasklogfile-appender-override.xml
   volumeClaimTemplates:
     - metadata:
         name: nexus-data
@@ -130,4 +130,4 @@ spec:
         storageClassName: "nxrm-nexus-ebs-storage"
         resources:
           requests:
-            storage: {{.Values.pvc.storage }}
+            storage: 20Gi
