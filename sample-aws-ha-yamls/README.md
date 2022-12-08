@@ -25,8 +25,6 @@ After creating the namespace, **you must run your YAML files in the order below:
 5. [External DNS YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-external-dns-rbac.yml)
 
 6. [Services YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-services.yaml)
-   * Optional - [Ingress for Docker YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-ingress-for-docker-connector.yaml)
-   * Optional - [Nodeport for Docker YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-nodeport-for-docker-connector.yaml)
 
 7. [StatefulSet YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-statefulset.yaml)
 
