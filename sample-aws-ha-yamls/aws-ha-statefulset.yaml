@@ -2,6 +2,7 @@
 #
 # Note: This YAML file is just an example and cannot be used as-is.
 # You must fill it out with the appropriate information for your deployment to be able to use it.
+# Note: change the <licenseFile> to the correct path to your license from the Secret Manager
 
 apiVersion: apps/v1
 kind: StatefulSet
