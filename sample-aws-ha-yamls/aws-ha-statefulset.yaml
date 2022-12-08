@@ -77,7 +77,7 @@ spec:
             - name: NEXUS_SECURITY_RANDOMPASSWORD
               value: "false"
             - name: INSTALL4J_ADD_VM_PARAMS
-              value: "-Xms2703m -Xmx2703m -Dnexus.licenseFile=/nxrm-secrets/nexus-repository-ha-nexus-27504-license \
+              value: "-Xms2703m -Xmx2703m -Dnexus.licenseFile=/nxrm-secrets/nxrm-license.lic \
           -Dnexus.datastore.clustered.enabled=true -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs \
           -Dnexus.datastore.nexus.jdbcUrl=jdbc:postgresql://${DB_HOST}:3306/${DB_NAME} \
           -Dnexus.datastore.nexus.username=${DB_USER} \
