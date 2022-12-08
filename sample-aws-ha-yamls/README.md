@@ -19,7 +19,7 @@ Ensure you have filled out the YAML files with appropriate information for your 
 5. [Logback Tasklogfile Override YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-nxrm-logback-tasklogfile-override.yaml)
 
 6. [Services YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-services.yaml)
-   * Optional - [Ingress for Docker YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/ha-preview/sample-aws-ha-yamls/aws-ha-ingress-for-docker-connector.yaml)
+   * Optional - [Ingress for Docker YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-ingress-for-docker-connector.yaml)
    * Optional - [Nodeport for Docker YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-docker-services.yaml)
 
 7. [Ingress YAML](https://github.com/sonatype/nxrm3-preview-ha-repository/blob/main/sample-aws-ha-yamls/aws-ha-ingress.yaml)
