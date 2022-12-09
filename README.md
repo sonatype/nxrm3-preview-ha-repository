@@ -13,7 +13,7 @@
 
 -->
 
-# Nexus Repository 3 High Availability (HA) Preview Helm and Sample YAML Repository
+# Nexus Repository 3 High Availability (HA) Preview Program Helm and Sample YAML Repository
 This repository contains resources for those in our Nexus Repository 3 High Availability Preview Program.
 
 ## Helm Chart for an HA Nexus Repository Deployment in AWS 
