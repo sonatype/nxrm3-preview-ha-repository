@@ -14,7 +14,28 @@
 -->
 
 # Nexus Repository 3 High Availability (HA) Preview Program Helm and Sample YAML Repository
-This repository contains resources for those in our Nexus Repository 3 High Availability Preview Program.
+This repository contains resources for those in our **Nexus Repository 3 High Availability Preview Program**. 
+Please refer to the documentation provided by your Customer Success Engineer for instructions on how to use these files.
+
+## HA Preview Prerequisites and System Requirements
+> **Warning** Do not deploy this preview version of HA in a production environment.
+
+Along with the HA-specific requirements listed below, you should also ensure that you meet our [normal Nexus Repository system requirements](https://help.sonatype.com/repomanager3/product-information/system-requirements).
+
+HA requires the following:
+* A Nexus Repository 3 Pro license
+* An external PostgreSQL database using Postgres 13 or later; size your database appropriately based on your request traffic and desired number of nodes
+* At least 2 Nexus Repository instances
+    * All Nexus Repository instances must be using the same Nexus Repository 3 Pro version, and it must be version 3.44.0 or later
+    * All Nexus Repository instances must have identical configuration in their $data-dir/etc/nexus.properties files
+* A load balancer (e.g., HAProxy, NGINX, Apache HTTP, or AWS ELB)
+* A blob store location for storing components that can be commonly accessed by all active nodes
+* Connectivity between Nexus Repository, the database, and blob store
+* All architecture must be in one region (if deploying to cloud) or data center (if deploying on-premises)
+
+If the Nexus Repository deployment will contain more than one Docker repository,  you must use one of the following:
+* An external load balancer (e.g., NGINX) as a [reverse proxy](https://help.sonatype.com/display/NXRM3M/Docker+Repository+Reverse+Proxy+Strategies) instead of the provided ingress for Docker YAML 
+* A [Docker Subdomain Connector](https://help.sonatype.com/repomanager3/nexus-repository-administration/formats/docker-registry/docker-subdomain-connector) with external DNS to route traffic to each Docker subdomain
 
 ## Helm Chart for an HA Nexus Repository Deployment in AWS 
 We provide a [Helm chart for those deploying to an AWS environment](https://github.com/sonatype/nxrm3-preview-ha-repository/tree/main/nxrm-aws-resiliency).
