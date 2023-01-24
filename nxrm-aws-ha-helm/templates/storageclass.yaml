@@ -3,7 +3,7 @@ kind: StorageClass
 metadata:
   name: "{{ .Chart.Name }}-{{ .Chart.Version}}-{{ .Release.Name }}-ebs-storage"
   namespace: {{ .Values.namespaces.nexusNs }}
-provisioner: kubernetes.io/aws-ebs
+provisioner: {{ .Values.storageClass.provisioner }}
 parameters:
   type: io1
   fsType: "ext4"
