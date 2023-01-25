@@ -45,7 +45,7 @@ spec:
       terminationGracePeriodSeconds: 20
       containers:
         - name: nxrm-app
-          image: sonatype/nexus3:3.44.0
+          image: sonatype/nexus3:3.45.1
           securityContext:
             runAsUser: 200
           imagePullPolicy: IfNotPresent

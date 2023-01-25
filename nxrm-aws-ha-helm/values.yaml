@@ -19,7 +19,7 @@ statefulset:
   container:
     image:
       repository: sonatype/nexus3
-      tag: 3.44.0
+      tag: 3.45.1
     containerPort: 8081
     pullPolicy: IfNotPresent
     env:
@@ -61,6 +61,7 @@ ingress:
       alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:0000000000000:certificate/00000000-1111-2222-3333-444444444444  # Comment out if you don't use docker repositories - The AWS Certificate Manager ARN for your HTTPS certificate
       external-dns.alpha.kubernetes.io/hostname: dockerrepo1.example.com, dockerrepo2.example.com, dockerrepo3.example.com # Add more docker subdomains using dockerrepoName.example.com otherwise comment out if you don't use docker repositories
 storageClass:
+  provisioner: ebs.csi.aws.com # in case of AWS EKS cluster running version less than 1.23 use 'kubernetes.io/aws-ebs'
   zones:
     zone1: zone1
     zone2: zone2

@@ -26,7 +26,7 @@ HA requires the following:
 * A Nexus Repository 3 Pro license
 * An external PostgreSQL database using Postgres 13 or later; size your database appropriately based on your request traffic and desired number of nodes
 * At least 2 Nexus Repository instances
-    * All Nexus Repository instances must be using the same Nexus Repository 3 Pro version, and it must be version 3.44.0 or later
+    * All Nexus Repository instances must be using the same Nexus Repository 3 Pro version, and it must be version 3.45.1 or later
     * All Nexus Repository instances must have identical configuration in their $data-dir/etc/nexus.properties files
 * A load balancer (e.g., HAProxy, NGINX, Apache HTTP, or AWS ELB)
 * A blob store location for storing components that can be commonly accessed by all active nodes
