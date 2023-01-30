@@ -13,9 +13,9 @@
 
 -->
 
-# Helm Chart for a High-Availability Nexus Repository Deployment in AWS
+# Helm Chart for a High-Availability Nexus Repository Deployment in Azure
 
-This Helm chart configures the Kubernetes resources that are needed for a high-availability (HA) Nexus Repository deployment on AWS.
+This Helm chart configures the Kubernetes resources that are needed for a high-availability (HA) Nexus Repository deployment on Azure.
 
 ---
 ## Installing this Chart
@@ -24,7 +24,7 @@ This Helm chart configures the Kubernetes resources that are needed for a high-a
 
 2. Install this chart using the following:
   
-```helm install nxrm nxrm3-preview-ha-repository/nxrm-aws-ha-helm -f values.yaml```
+```helm install nxrm nxrm3-preview-ha-repository/nxrm-azure-ha-helm -f values.yaml```
   
 3. Get the Nexus Repository link using the following:
   
