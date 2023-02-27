@@ -76,7 +76,9 @@ spec:
           -Dnexus.datastore.clustered.enabled=true -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs \
           -Dnexus.datastore.nexus.jdbcUrl=jdbc:postgresql://${DB_HOST}:{{ .Values.statefulset.container.env.nexusDBPort }}/${DB_NAME} \
           -Dnexus.datastore.nexus.username=${DB_USER} \
-          -Dnexus.datastore.nexus.password=${DB_PASSWORD}"
+          -Dnexus.datastore.nexus.password=${DB_PASSWORD} \
+          -Dnexus.skipDefaultRepositories={{ .Values.statefulset.skipDefaultRepositories}} \
+          -Dnexus.blobstore.provisionDefaults={{ .Values.statefulset.provisionDefaultBlobStore}}"
           volumeMounts:
             - mountPath: /nxrm-secrets
               name: nxrm-secrets
@@ -117,12 +119,6 @@ spec:
             items:
               - key: logback-tasklogfile-appender-override.xml
                 path: logback-tasklogfile-appender-override.xml
-  volumeClaimTemplates:
-    - metadata:
-        name: nexus-data
-      spec:
-        accessModes: [ "{{.Values.pvc.accessModes }}" ]
-        storageClassName: "{{ .Chart.Name }}-{{ .Chart.Version}}-{{ .Release.Name }}-ebs-storage"
-        resources:
-          requests:
-            storage: {{.Values.pvc.storage }}
+        - name: nexus-data
+          hostPath:
+            path: {{ .Values.statefulset.workdir }}
