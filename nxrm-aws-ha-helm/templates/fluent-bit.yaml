@@ -30,7 +30,7 @@ roleRef:
   kind: ClusterRole
   name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-fluent-bit-role
 subjects:
-  - kind: ServiceAccount 
+  - kind: ServiceAccount
     name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-fluent-bit
     namespace: {{ .Values.namespaces.cloudwatchNs }}
 ---
@@ -78,7 +78,7 @@ data:
     [INPUT]
         Name                tail
         Tag                 nexus.nexus-log
-        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-{{ .Values.statefulset.name }}*{{ .Values.namespaces.nexusNs }}_nxrm-app-*.log
+        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-*{{ .Values.namespaces.nexusNs }}_nxrm-app-*.log
         Parser              docker
         DB                  /var/fluent-bit/state/flb_container.db
         Mem_Buf_Limit       5MB
@@ -113,7 +113,7 @@ data:
     [INPUT]
         Name                tail
         Tag                 nexus.request-log
-        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-{{ .Values.statefulset.name }}*{{ .Values.namespaces.nexusNs }}_request-log-*.log
+        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-*{{ .Values.namespaces.nexusNs }}_request-log-*.log
         Parser              docker
         DB                  /var/fluent-bit/state/flb_container.db
         Mem_Buf_Limit       5MB
@@ -148,7 +148,7 @@ data:
     [INPUT]
         Name                tail
         Tag                 nexus.audit-log
-        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-{{ .Values.statefulset.name }}*{{ .Values.namespaces.nexusNs }}_audit-log-*.log
+        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-*{{ .Values.namespaces.nexusNs }}_audit-log-*.log
         Parser              docker
         DB                  /var/fluent-bit/state/flb_container.db
         Mem_Buf_Limit       5MB
@@ -183,7 +183,7 @@ data:
     [INPUT]
         Name                tail
         Tag                 nexus.tasks-log
-        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-{{ .Values.statefulset.name }}*{{ .Values.namespaces.nexusNs }}_tasks-log-*.log
+        Path                /var/log/containers/{{ .Chart.Name }}-{{ .Chart.Version  | replace "." "-" }}-{{ .Release.Name }}-*{{ .Values.namespaces.nexusNs }}_tasks-log-*.log
         Parser              docker
         DB                  /var/fluent-bit/state/flb_container.db
         Mem_Buf_Limit       5MB
@@ -345,18 +345,18 @@ spec:
           configMap:
             name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-fluent-bit-config
         - name: runlogjournal
-          hostPath:
-            path: /run/log/journal
+        hostPath:
+          path: /run/log/journal
         - name: dmesg
           hostPath:
             path: /var/log/dmesg
       serviceAccountName: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-fluent-bit
       tolerations:
-        - key: node-role.kubernetes.io/master
-          operator: Exists
-          effect: NoSchedule
-        - operator: "Exists"
-          effect: "NoExecute"
-        - operator: "Exists"
-          effect: "NoSchedule"
-{{- end }}
+          - key: node-role.kubernetes.io/master
+            operator: Exists
+            effect: NoSchedule
+            - operator: "Exists"
+              effect: "NoExecute"
+            - operator: "Exists"
+              effect: "NoSchedule"
+  {{- end }}
