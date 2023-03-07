@@ -15,6 +15,7 @@ statefulset:
   clusterName: nxrm-nexus
   logsRegion: us-east-1
   fluentBitVersion: 2.28.0
+  replicaCount: 3
   skipDefaultRepositories: true
   provisionDefaultBlobStore: false
   initContainer:
