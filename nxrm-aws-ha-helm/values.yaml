@@ -8,7 +8,7 @@ externaldns:
   domainFilter: example.com #your root domain e.g example.com
   awsZoneType: private # hosted zone to look at (valid values are public, private or no value for both)
 fluentbit:
-  enabled: false
+  enabled: false #set this to true to enable sending of logs to CloudWatch
 statefulset:
   clusterRegion: us-east-1
   name: nxrm-statefulset
@@ -16,8 +16,6 @@ statefulset:
   logsRegion: us-east-1
   fluentBitVersion: 2.28.0
   replicaCount: 3
-  skipDefaultRepositories: true
-  provisionDefaultBlobStore: false
   initContainer:
     image:
       repository: busybox
