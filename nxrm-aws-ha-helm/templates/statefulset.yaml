@@ -76,9 +76,7 @@ spec:
           -Dnexus.datastore.clustered.enabled=true -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs \
           -Dnexus.datastore.nexus.jdbcUrl=jdbc:postgresql://${DB_HOST}:{{ .Values.statefulset.container.env.nexusDBPort }}/${DB_NAME} \
           -Dnexus.datastore.nexus.username=${DB_USER} \
-          -Dnexus.datastore.nexus.password=${DB_PASSWORD} \
-          -Dnexus.skipDefaultRepositories={{ .Values.statefulset.skipDefaultRepositories}} \
-          -Dnexus.blobstore.provisionDefaults={{ .Values.statefulset.provisionDefaultBlobStore}}"
+          -Dnexus.datastore.nexus.password=${DB_PASSWORD}"
           volumeMounts:
             - mountPath: /nxrm-secrets
               name: nxrm-secrets
