@@ -13,14 +13,15 @@
 # You must fill it out with the appropriate information for your deployment to be able to use it.
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: nxrm-deployment-nexus
-  namespace: nexus-repo-mgr
+  name: nxrm-nexus-statefulset
+  namespace: nxrm
   labels:
     app: nxrm
 spec:
-  replicas: 1
+  replicas: 2
+  serviceName: nxrm-nexus-statefulset-service
   selector:
     matchLabels:
       app: nxrm
@@ -48,10 +49,11 @@ spec:
               chown -R '200:200' /nexus-data
           volumeMounts:
             - name: nexusdata
-              mountPath: /nexus-data     
+              mountPath: /nexus-data
+      terminationGracePeriodSeconds: 20
       containers:
       - name: nxrm-app
-        image: sonatype/nexus3:3.37.0
+        image: sonatype/nexus3:3.50.0
         securityContext:
           runAsUser: 200
         imagePullPolicy: IfNotPresent
@@ -60,6 +62,8 @@ spec:
         env:
         - name: DB_NAME
           value: <db-name>
+       -  name: DB_PORT
+          value: 3306
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
