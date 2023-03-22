@@ -52,7 +52,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-pv3
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv3
 spec:
   capacity:
     storage: {{ .Values.pv.pv3.storage }}
@@ -77,7 +77,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-pv4
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv4
 spec:
   capacity:
     storage: {{ .Values.pv.pv4.storage }}
@@ -102,7 +102,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-pv5
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv5
 spec:
   capacity:
     storage: {{ .Values.pv.pv5.storage }}

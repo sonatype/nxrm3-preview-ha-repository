@@ -34,10 +34,8 @@ spec:
               touch -a /nexus-data/log/audit/audit.log &&
               touch -a /nexus-data/log/request.log &&
               chown -R '200:200' /nexus-data
-          { { - with .Values.statefulset.initContainer.resources } }
           resources:
-            { { - toYaml . | nindent 4 } }
-          { { - end } }
+            {{ toYaml .Values.statefulset.initContainer.resources | nindent 12 }}
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
@@ -50,10 +48,8 @@ spec:
           imagePullPolicy: {{ .Values.statefulset.container.pullPolicy }}
           ports:
             - containerPort: {{ .Values.statefulset.container.containerPort }}
-          { { - with .Values.statefulset.container.resources } }
           resources:
-            { { - toYaml . | nindent 4 } }
-          { { - end } }
+            {{ toYaml .Values.statefulset.container.resources | nindent 12 }}
           env:
             - name: DB_NAME
               value: "{{ .Values.statefulset.container.env.nexusDBName }}"
@@ -99,30 +95,24 @@ spec:
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
-          { { - with .Values.statefulset.requestLogContainer.resources } }
           resources:
-            { { - toYaml . | nindent 4 } }
-          { { - end } }
+            {{ toYaml .Values.statefulset.requestLogContainer.resources | nindent 12 }}
         - name: audit-log
           image: {{ .Values.statefulset.auditLogContainer.image.repository }}:{{ .Values.statefulset.auditLogContainer.image.tag }}
           args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/audit/audit.log']
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
-          { { - with .Values.statefulset.auditLogContainer.resources } }
           resources:
-            { { - toYaml . | nindent 4 } }
-          { { - end } }
+            {{ toYaml .Values.statefulset.auditLogContainer.resources | nindent 12 }}
         - name: tasks-log
           image: {{ .Values.statefulset.taskLogContainer.image.repository }}:{{ .Values.statefulset.taskLogContainer.image.tag }}
           args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/tasks/allTasks.log']
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
-          { { - with .Values.statefulset.taskLogContainer.resources } }
           resources:
-            { { - toYaml . | nindent 4 } }
-          { { - end } }
+          {{ toYaml .Values.statefulset.taskLogContainer.resources | nindent 12 }}
       volumes:
         - name: nxrm-secrets
           csi:
