@@ -11,4 +11,4 @@ configMapGenerator:
     files:
       - nxrm-license.lic
 resources:
-  - nxrm_deployment.yaml49
+  - onprem-ha-statefulset.yaml

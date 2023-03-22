@@ -4,14 +4,15 @@
 # You must fill it out with the appropriate information for your deployment to be able to use it.
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: nxrm-deployment
+  name: nxrm-statefulset
   namespace: nxrm
   labels:
     app: nxrm
 spec:
   replicas: 3
+  serviceName: nxrm-statefulset-service
   selector:
     matchLabels:
       app: nxrm
@@ -23,6 +24,13 @@ spec:
       initContainers:
         - name: chown-nexusdata-owner-to-nexus
           image: busybox:1.33.1
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "256Mi"
           command: [/bin/sh]
           args:
             - -c
@@ -34,9 +42,17 @@ spec:
               mountPath: /nexus-data
             - name: nfs-blob-storage
               mountPath: /blobs
+      terminationGracePeriodSeconds: 20
       containers:
         - name: nxrm-app
           image: sonatype/nexus3:3.50.0
+          resources:
+            limits:
+              cpu: "0.3"
+              memory: "3072Mi"
+            requests:
+              cpu: "0.25"
+              memory: "2048Mi"
           securityContext:
             runAsUser: 200
           imagePullPolicy: IfNotPresent
@@ -72,12 +88,18 @@ spec:
               mountPath: /etc/nxrm-license
 
       volumes:
-        - name: nexusdata
-          persistentVolumeClaim:
-            claimName: local-disk-claim
         - name: nfs-blob-storage
           persistentVolumeClaim:
             claimName: nfs-blobstorage-claim
         - name: license-volume
           configMap:
             name: nxrm-license
+  volumeClaimTemplates:
+    - metadata:
+        name: nexusdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "nxrm-local-storage"
+        resources:
+          requests:
+            storage: 20Gi

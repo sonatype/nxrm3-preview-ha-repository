@@ -7,5 +7,9 @@ data:
    create-nexus-work-dir.sh: |
     #!/bin/bash
     # Make Nexus Repository Manager work directory
-    mkdir -p /nexus-repo-mgr-work-dir/work
+    mkdir -p /nexus-repo-mgr-work-dir/work1
+    mkdir -p /nexus-repo-mgr-work-dir/work2
+    mkdir -p /nexus-repo-mgr-work-dir/work3
+    mkdir -p /nexus-repo-mgr-work-dir/work4
+    mkdir -p /nexus-repo-mgr-work-dir/work5
 

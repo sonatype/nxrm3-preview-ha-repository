@@ -10,7 +10,6 @@ spec:
   selector:
     app: nxrm
   ports:
-    - name: docker-service
       protocol: TCP
       port: 9090
       targetPort: 8081
