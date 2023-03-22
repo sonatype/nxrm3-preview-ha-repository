@@ -26,11 +26,11 @@ spec:
           image: busybox:1.33.1
           resources:
             limits:
-              cpu: "0.2"
-              memory: "512Mi"
+              cpu: "0.2" #This is an example. Update as needed
+              memory: "512Mi" #This is an example. Update as needed
             requests:
-              cpu: "0.1"
-              memory: "256Mi"
+              cpu: "0.1" #This is an example. Update as needed
+              memory: "256Mi" #This is an example. Update as needed
           command: [/bin/sh]
           args:
             - -c
@@ -48,11 +48,11 @@ spec:
           image: sonatype/nexus3:3.50.0
           resources:
             limits:
-              cpu: "0.3"
-              memory: "3072Mi"
+              cpu: "0.3" #This is an example. Update as needed
+              memory: "3072Mi" #This is an example. Update as needed
             requests:
-              cpu: "0.25"
-              memory: "2048Mi"
+              cpu: "0.25" #This is an example. Update as needed
+              memory: "2048Mi" #This is an example. Update as needed
           securityContext:
             runAsUser: 200
           imagePullPolicy: IfNotPresent
