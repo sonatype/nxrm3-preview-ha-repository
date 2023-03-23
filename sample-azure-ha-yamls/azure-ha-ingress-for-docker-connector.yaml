@@ -19,11 +19,11 @@ spec:
   rules:
     - host: example.com #comment out if not using https for load balancer
       http:
-    paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: nxrm-docker-service
-            port:
-              number: 9090
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nxrm-docker-service
+                port:
+                  number: 9090
