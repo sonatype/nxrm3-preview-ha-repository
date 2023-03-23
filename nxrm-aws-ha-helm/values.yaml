@@ -109,7 +109,8 @@ storageClass:
   iopsPerGB: "10"
 pv:
   mode: "dynamic" #Known values are: dynamic, static
-  provisioner: ebs.csi.aws.com # For local storage use kubernetes.io/no-provisioner. For dynamic, in case of AWS EKS cluster running version less than 1.23 use 'kubernetes.io/aws-ebs'.
+  dynamicProvisioner: ebs.csi.aws.com # In case of AWS EKS cluster running version less than 1.23 use 'kubernetes.io/aws-ebs'
+  staticProvisioner: kubernetes.io/no-provisioner
   pv1:
     storage: 5Gi
     volumeMode: Filesystem
@@ -119,7 +120,7 @@ pv:
     zones:
       - us-east-1a
       - us-east-1b
-      # - us-east-1c
+      - us-east-1c
   pv2:
     storage: 5Gi
     volumeMode: Filesystem
@@ -129,7 +130,7 @@ pv:
     zones:
       - us-east-1a
       - us-east-1b
-      # - us-east-1c
+      - us-east-1c
 
   pv3:
     storage: 5Gi
@@ -140,7 +141,7 @@ pv:
     zones:
       - us-east-1a
       - us-east-1b
-        # - us-east-1c
+      - us-east-1c
   pv4:
     storage: 5Gi
     volumeMode: Filesystem
@@ -150,7 +151,7 @@ pv:
     zones:
       - us-east-1a
       - us-east-1b
-        # - us-east-1c
+      - us-east-1c
   pv5:
     storage: 5Gi
     volumeMode: Filesystem
@@ -160,6 +161,7 @@ pv:
     zones:
       - us-east-1a
       - us-east-1b
+      - us-east-1c
 pvc:
   accessModes: ReadWriteOnce
   storage: 20Gi

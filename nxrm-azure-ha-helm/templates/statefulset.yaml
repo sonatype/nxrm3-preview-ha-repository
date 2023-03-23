@@ -122,7 +122,7 @@ spec:
         name: nexus-data
       spec:
         accessModes: [ "{{.Values.pvc.accessModes }}" ]
-        storageClassName: "{{.Values.storageClass.name}}"
+        storageClassName: {{ ternary .Values.storageClass.localStorageName .Values.storageClass.dynamicStorageName (eq .Values.pv.mode "static") }}
         resources:
           requests:
             storage: {{.Values.pvc.storage }}

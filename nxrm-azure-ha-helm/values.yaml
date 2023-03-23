@@ -6,10 +6,24 @@ statefulset:
   name: nxrm-statefulset
   clusterName: nxrm-nexus
   initContainer:
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
     image:
       repository: busybox
       tag: 1.33.1
   container:
+    resources:
+      limits:
+        cpu: "0.3"
+        memory: "3072Mi"
+      requests:
+        cpu: "0.25"
+        memory: "2048Mi"
     image:
       repository: sonatype/nexus3
       tag: 3.45.1
@@ -20,14 +34,35 @@ statefulset:
       nexusDBPort: 3306
       install4jAddVmParams: "-Xms2703m -Xmx2703m"
   requestLogContainer:
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
     image:
       repository: busybox
       tag: 1.33.1
   auditLogContainer:
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
     image:
       repository: busybox
       tag: 1.33.1
   taskLogContainer:
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
     image:
       repository: busybox
       tag: 1.33.1
@@ -36,16 +71,69 @@ ingress:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"  
 storageClass:
-  name: managed-csi
+  dynamicStorageName: managed-csi
+  localStorageName: local-storage
   zones:
     zone1: zone1
     zone2: zone2
     zone3: zone3
   iopsPerGB: "10"
+pv:
+  mode: "dynamic" #Known values are: dynamic for dynamic volume provisioning , static for static persistent volumes
+  staticProvisioner: kubernetes.io/no-provisioner
+  pv1:
+    storage: 5Gi
+    volumeMode: Filesystem
+    accessModes: ReadWriteOnce
+    reclaimPolicy: Retain
+    path: /nexus-repo-mgr-work-dir/work-1
+    zones:
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
+  pv2:
+    storage: 5Gi
+    volumeMode: Filesystem
+    accessModes: ReadWriteOnce
+    reclaimPolicy: Retain
+    path: /nexus-repo-mgr-work-dir/work-2
+    zones:
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
+  pv3:
+    storage: 5Gi
+    volumeMode: Filesystem
+    accessModes: ReadWriteOnce
+    reclaimPolicy: Retain
+    path: /nexus-repo-mgr-work-dir/work-3
+    zones:
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
+  pv4:
+    storage: 5Gi
+    volumeMode: Filesystem
+    accessModes: ReadWriteOnce
+    reclaimPolicy: Retain
+    path: /nexus-repo-mgr-work-dir/work-4
+    zones:
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
+  pv5:
+    storage: 5Gi
+    volumeMode: Filesystem
+    accessModes: ReadWriteOnce
+    reclaimPolicy: Retain
+    path: /nexus-repo-mgr-work-dir/work-5
+    zones:
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
 pvc:
   accessModes: ReadWriteOnce
-  storage: 100Gi
-
+  storage: 20Gi
 service:  #Nexus Repo NodePort Service
   nexus:
    type: NodePort
@@ -68,4 +156,15 @@ secret:
     password: nxrm-db-password
     host: nxrm-db-host
   adminPassword: nxrm-admin-password
+workdir:
+  configmap:
+    name: create-nexus-workdir-config
+    paths:
+      - /nexus-repo-mgr-work-dir/work-1
+      - /nexus-repo-mgr-work-dir/work-2
+      - /nexus-repo-mgr-work-dir/work-3
+      - /nexus-repo-mgr-work-dir/work-4
+      - /nexus-repo-mgr-work-dir/work-5
+  daemonset:
+    name: create-nexus-work-dir
 

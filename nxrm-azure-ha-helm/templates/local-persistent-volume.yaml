@@ -1,0 +1,127 @@
+{{- if eq .Values.pv.mode "static" -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv1
+spec:
+  capacity:
+    storage: {{ .Values.pv.pv1.storage }}
+  volumeMode: Filesystem
+  accessModes:
+  - {{ .Values.pv.pv1.accessModes }}
+  persistentVolumeReclaimPolicy: {{ .Values.pv.pv1.reclaimPolicy }}
+  storageClassName: {{.Values.storageClass.localStorageName }}
+  local:
+    path: {{ .Values.pv.pv1.path }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values:
+          {{- range $zone  := .Values.pv.pv1.zones }}
+          - {{ $zone }}
+          {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv2
+spec:
+  capacity:
+    storage: {{ .Values.pv.pv2.storage }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.pv.pv2.accessModes }}
+  persistentVolumeReclaimPolicy: {{ .Values.pv.pv2.reclaimPolicy }}
+  storageClassName: {{.Values.storageClass.localStorageName }}
+  local:
+    path: {{ .Values.pv.pv2.path }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: topology.kubernetes.io/zone
+              operator: In
+              values:
+              {{- range $zone  := .Values.pv.pv2.zones }}
+              - {{ $zone }}
+              {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv3
+spec:
+  capacity:
+    storage: {{ .Values.pv.pv3.storage }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.pv.pv3.accessModes }}
+  persistentVolumeReclaimPolicy: {{ .Values.pv.pv3.reclaimPolicy }}
+  storageClassName: {{.Values.storageClass.localStorageName }}
+  local:
+    path: {{ .Values.pv.pv3.path }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: topology.kubernetes.io/zone
+              operator: In
+              values:
+              {{- range $zone  := .Values.pv.pv3.zones }}
+              - {{ $zone }}
+              {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv4
+spec:
+  capacity:
+    storage: {{ .Values.pv.pv4.storage }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.pv.pv4.accessModes }}
+  persistentVolumeReclaimPolicy: {{ .Values.pv.pv4.reclaimPolicy }}
+  storageClassName: {{.Values.storageClass.localStorageName }}
+  local:
+    path: {{ .Values.pv.pv4.path }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: topology.kubernetes.io/zone
+              operator: In
+              values:
+              {{- range $zone  := .Values.pv.pv4.zones }}
+              - {{ $zone }}
+              {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Chart.Name }}-{{ .Chart.Version }}.{{ .Release.Name }}-local-pv5
+spec:
+  capacity:
+    storage: {{ .Values.pv.pv5.storage }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.pv.pv5.accessModes }}
+  persistentVolumeReclaimPolicy: {{ .Values.pv.pv5.reclaimPolicy }}
+  storageClassName: {{.Values.storageClass.localStorageName }}
+  local:
+    path: {{ .Values.pv.pv5.path }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: topology.kubernetes.io/zone
+              operator: In
+              values:
+              {{- range $zone  := .Values.pv.pv5.zones }}
+              - {{ $zone }}
+              {{- end }}
+
+{{- end }}

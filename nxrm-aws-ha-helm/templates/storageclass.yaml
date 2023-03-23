@@ -3,5 +3,5 @@ kind: StorageClass
 metadata:
   name: "{{ .Values.storageClass.name }}"
   namespace: {{ .Values.namespaces.nexusNs }}
-provisioner: {{ .Values.pv.provisioner }}
+provisioner: {{ ternary .Values.pv.staticProvisioner .Values.pv.dynamicProvisioner (eq .Values.pv.mode "static") }}
 volumeBindingMode: WaitForFirstConsumer
