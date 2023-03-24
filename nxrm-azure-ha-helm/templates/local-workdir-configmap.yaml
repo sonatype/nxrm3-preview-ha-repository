@@ -1,0 +1,14 @@
+{{- if eq .Values.pv.mode "static" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.workdir.configmap.name }}
+  namespace: {{ .Values.namespaces.nexusNs }}
+data:
+   create-nexus-work-dir.sh: |
+    #!/bin/bash
+    # Make Nexus Repository Manager work directory
+      {{- range $.Values.workdir.configmap.paths }}
+          mkdir -p {{ . }}
+      {{- end }}
+{{- end }}
