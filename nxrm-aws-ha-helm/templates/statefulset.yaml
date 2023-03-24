@@ -46,6 +46,8 @@ spec:
           imagePullPolicy: {{ .Values.statefulset.container.pullPolicy }}
           ports:
             - containerPort: {{ .Values.statefulset.container.containerPort }}
+          resources:
+            {{ toYaml .Values.statefulset.container.resources | nindent 12 }}
           env:
             - name: DB_NAME
               value: "{{ .Values.statefulset.container.env.nexusDBName }}"
