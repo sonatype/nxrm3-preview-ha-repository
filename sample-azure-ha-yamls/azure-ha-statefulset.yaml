@@ -53,6 +53,13 @@ spec:
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "256Mi"
       terminationGracePeriodSeconds: 20
       containers:
         - name: nxrm-app
@@ -118,18 +125,39 @@ spec:
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "256Mi"
         - name: audit-log
           image: busybox:1.33.1
           args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/audit/audit.log']
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "256Mi"
         - name: tasks-log
           image: busybox:1.33.1
           args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/tasks/allTasks.log']
           volumeMounts:
             - name: nexus-data
               mountPath: /nexus-data
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "256Mi"
       volumes:
         - name: nxrm-secrets
           csi:
