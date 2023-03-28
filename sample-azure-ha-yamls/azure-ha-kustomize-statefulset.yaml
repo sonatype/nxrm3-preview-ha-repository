@@ -55,10 +55,25 @@ spec:
           volumeMounts:
             - name: nexusdata
               mountPath: /nexus-data
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "256Mi"
       terminationGracePeriodSeconds: 20
       containers:
       - name: nxrm-app
         image: sonatype/nexus3:3.50.0
+        # See help documentation, these are minimum sysem requirements
+        resources:
+          limits:
+            cpu: 4
+            memory: "8Gi"
+          requests:
+            cpu: 4
+            memory: "8Gi"
         securityContext:
           runAsUser: 200
         imagePullPolicy: IfNotPresent
@@ -94,7 +109,7 @@ spec:
             secretKeyRef:
               name: nxrm-secret
               key: nxrm-admin-user
-   - name: INSTALL4J_ADD_VM_PARAMS
+        - name: INSTALL4J_ADD_VM_PARAMS
           value: "-Xms2703m -Xmx2703m -Dnexus.licenseFile=/nxrm-license/nxrm-license.lic \
           -Dnexus.datastore.enabled=true -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs \
           -Dnexus.datastore.nexus.jdbcUrl=jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require \
@@ -114,18 +129,39 @@ spec:
         volumeMounts:
           - name: nexusdata
             mountPath: /nexus-data
+        resources:
+          limits:
+            cpu: "0.2"
+            memory: "512Mi"
+          requests:
+            cpu: "0.1"
+            memory: "256Mi"
       - name: audit-log
         image: busybox:1.33.1
         args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/audit/audit.log']
         volumeMounts:
           - name: nexusdata
             mountPath: /nexus-data
+        resources:
+          limits:
+            cpu: "0.2"
+            memory: "512Mi"
+          requests:
+            cpu: "0.1"
+            memory: "256Mi"
       - name: tasks-log
         image: busybox:1.33.1
         args: [/bin/sh, -c, 'tail -n+1 -F /nexus-data/log/tasks/allTasks.log']
         volumeMounts:
           - name: nexusdata
             mountPath: /nexus-data            
+        resources:
+          limits:
+            cpu: "0.2"
+            memory: "512Mi"
+          requests:
+            cpu: "0.1"
+            memory: "256Mi"
       volumes:
       - name: nexusdata
         persistentVolumeClaim:

@@ -20,10 +20,25 @@ statefulset:
     image:
       repository: busybox
       tag: 1.33.1
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
   container:
     image:
       repository: sonatype/nexus3
-      tag: 3.45.1
+      tag: 3.50.0
+    resources:
+      # See help documentation, these are minimum sysem requirements
+      requests:
+        cpu: 4
+        memory: "8Gi"
+      limits:
+        cpu: 4
+        memory: "8Gi"
     containerPort: 8081
     pullPolicy: IfNotPresent
     env:
@@ -34,14 +49,35 @@ statefulset:
     image:
       repository: busybox
       tag: 1.33.1
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
   auditLogContainer:
     image:
       repository: busybox
       tag: 1.33.1
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
   taskLogContainer:
     image:
       repository: busybox
       tag: 1.33.1
+    resources:
+      limits:
+        cpu: "0.2"
+        memory: "512Mi"
+      requests:
+        cpu: "0.1"
+        memory: "256Mi"
 serviceAccount:
   name: nexus-repository-deployment-sa #This service account in managed by Helm
   role: arn:aws:iam::000000000000:role/nxrm-nexus-role #Role created in the "AWS Secrets Manager" section of the HA documentation
